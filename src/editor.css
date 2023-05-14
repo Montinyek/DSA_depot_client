@@ -1,0 +1,90 @@
+.cm-editor .cm-content {
+    font-size: 1rem;
+}
+
+.editor-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 5vh;
+}
+
+.rotate {
+    animation: rotate 1s forwards;
+}
+
+.editor-buttons > * {
+    margin: 0 5px 10px 5px;
+}
+
+.edit-modal-title {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    padding: 5px 5px 5px 10px
+}
+
+.edit-modal-select {
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    padding: 5px 5px 5px 10px
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    border: none;
+    background-color: #F1EDEE;
+    padding: 0.4rem;
+    border-radius: 5px;
+    gap: 0.3rem;
+}
+
+.tag {
+    color: #F1EDEE;
+    background-color: #3C474B;
+    display: inline-block;
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 1.1rem;
+}
+
+.tag .remove-tag {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #101419;
+    color: #F1EDEE;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    margin-left: 0.3rem;
+    cursor: pointer;
+}
+
+.tags-input {
+    border: none;
+    outline: none;
+    width: 5rem;
+    flex-grow: 1;
+    background-color: #F1EDEE;
+    font-size: 1.1rem;
+}
+
+@media screen and (max-width: 325px) {
+    .editor-buttons {
+        margin-top: 1vh;
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

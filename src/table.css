@@ -1,0 +1,177 @@
+table {
+  border-collapse: collapse;
+  min-width: 80%;
+  margin: auto;
+  background-color: #3C474B;
+  border-radius: 10px;
+}
+
+table tr {
+  height: 70px;
+  color: #F1EDEE;
+}
+
+table tr:not(:last-child) {
+  border-bottom: 1px solid #F1EDEE;
+}
+
+table tr a {
+  color: #F1EDEE;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+td {
+  padding: 10px;
+}
+
+.lang-icon {
+  padding-right: 10rem;
+}
+
+.lang-icon2 {
+  display: none;
+}
+
+svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+span {
+  position: relative;
+}
+
+.createdOn::before {
+  content: "Created on";
+  position: absolute;
+  font-size: 12px;
+  bottom: 100%;
+}
+
+.updatedOn::before {
+  content: "Updated on";
+  position: absolute;
+  font-size: 12px;
+  bottom: 100%;
+}
+
+table tr td:nth-child(4) {
+  margin-left: auto
+}
+
+@media screen and (max-width: 1190px) {
+  .lang-icon {
+    padding-right: 5rem;
+  }
+}
+
+@media screen and (max-width: 1135px) {
+  .lang-icon {
+    padding-right: 3rem;
+  }
+}
+
+@media screen and (max-width: 995px) {
+  .lang-icon {
+    padding-right: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  table tr {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 85px;
+  }
+  table tr td:nth-child(1) {
+    flex-basis: 100%;
+  }
+  table tr td:nth-child(3) {
+    margin-left: 20%;
+  }
+  table tr td:nth-child(4) {
+    margin-right: 10%;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  table tr {
+    height: 105px;
+  }
+  table tr td:nth-child(3) {
+    margin-left: 5%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  table tr td:nth-child(4) {
+    margin-left: 5%;
+
+  }
+  table tr td:nth-child(6) {
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  table tr td:nth-child(4) {
+    margin-left: auto;
+
+  }
+  table tr td:nth-child(6) {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  table tr {
+    height: 115px
+  }
+  table tr td:nth-child(3) {
+    margin-left: 3%;
+  }
+  td {
+    padding: 0;
+  }
+  td:not(:nth-child(4)) {
+    padding: 8px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  table tr td:nth-child(2) {
+    flex-basis: 100%;
+  }
+  table tr td:nth-child(3) {
+    margin-left: 0;
+  }
+  table tr {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 290px) {
+  table {
+    width: 260px;
+  }
+  table tr {
+    height: 175px;
+  }
+  .lang-icon {
+    display: none;
+  }
+  .lang-icon2 {
+    display: inline-block;
+  }
+  table tr td:nth-child(4) {
+    margin-left: 10%;
+  }
+  table tr td:nth-child(6) {
+    margin-left: auto;
+  }
+  td {
+    padding: 8px;
+  }
+}

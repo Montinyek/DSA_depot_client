@@ -1,13 +1,21 @@
 {
-  "name": "codemirror2",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.1.7",
+    "@icons-pack/react-simple-icons": "^7.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@uiw/codemirror-theme-atomone": "^4.19.16",
+    "@uiw/codemirror-theme-darcula": "^4.19.16",
+    "@uiw/react-codemirror": "^4.19.16",
+    "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
