@@ -105,7 +105,7 @@ export const Home = () => {
       </DeleteModal>
       <div className="login-and-editor-btn">
       {admin && <Link to="/editor" onClick={() => localStorage.setItem("openedSnippet", "")}><button>Editor</button></Link>}
-      {!admin ? <button onClick={() => setOpenLogin(true)}>Login</button> : <button onClick={() => setAdmin(false)}>Logout</button>}
+      {!admin ? <button onClick={() => setOpenLogin(true)}>Login</button> : <button onClick={() => {setAdmin(false); localStorage.clear()}}>Logout</button>}
       </div>
 
       <div>
