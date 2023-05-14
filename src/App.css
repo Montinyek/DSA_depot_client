@@ -128,7 +128,7 @@ ul li:hover {
   width: 2rem;
 }
 
-.nothing-2-display {
+.no-list-display {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,6 +140,10 @@ ul li:hover {
   margin: auto;
   border-radius: 5px;
   height: 8rem;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
 }
 
 /* MODAL STYLES */
@@ -188,6 +192,15 @@ ul li:hover {
   }
   .page-controls {
     gap: 2rem;
+  }
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
   }
 }
 

@@ -31,6 +31,7 @@ export const Home = () => {
   const [deleted, setDeleted] = useState(false)
   const { setSnippetDetails } = useContext(EditorContext)
   const { setSnippetId } = useContext(EditorContext)
+  const [ noSearchRes, setNoSearchRes ] = useState(false)
 
   useEffect(() => {
     setSnippetDetails({ title: "Untitled", code: " ", createdOn: " ", updatedOn: " ", lang: "JavaScript", tags: [] })
@@ -67,12 +68,16 @@ export const Home = () => {
         list.filter(a => filterVal.trim().split(' ').map(val => val.toLowerCase()).filter(Boolean).some(b => a.tags.includes(b)))
       setDisplayedList(filtered)
       setFilterVal(filterVal.trim())
-      console.log(displayedList.length)
+      setNoSearchRes(filtered.length ? false : true)
     } else {
       setDisplayedList(list)
       setFilterVal("")
+      setNoSearchRes(false)
     }
   }
+
+  console.log(list.length)
+  console.log(noSearchRes)
 
   function handleSearch(e) {
     setFilterVal(e.target.value)
@@ -96,7 +101,7 @@ export const Home = () => {
     <>
       <LoginModal open={openLogin} close={() => { setOpenLogin(false); setLoginInput("") }}>
           <div style={{fontSize: "2rem", color: "#F1EDEE"}}>Admin only</div>
-          <input type="text" value={loginInput} onChange={handleLogin} style={{ border: "none", outline: "none", borderRadius: "5px", fontSize: "1.1rem", padding: "5px 5px 5px 10px" }} />
+          <input type="password" value={loginInput} onChange={handleLogin} style={{ border: "none", outline: "none", borderRadius: "5px", fontSize: "1.1rem", padding: "5px 5px 5px 10px" }} />
           <button onClick={login} style={{ width: "60%" }}>Enter</button>
       </LoginModal>
       <DeleteModal open={openDelete} close={() => setOpenDelete(false)}>
@@ -159,7 +164,8 @@ export const Home = () => {
         </table>}
       </div>
       
-      {displayedList.length === 0 && <div className="nothing-2-display">Nothing to display...</div>}
+      {noSearchRes && <div className="no-list-display">No results...</div>}
+      {displayedList.length === 0 && !noSearchRes && <div className="no-list-display"><i className={`fa fa-spinner ${"spin"}`} aria-hidden="true"></i></div>}
 
       <div className="page-controls">
           <button disabled={page === 1} onClick={() => {setPage(prev => prev > 1 ? prev - 1 : 1); localStorage.setItem("page", +page - 1)}}><FaLongArrowAltLeft /></button>

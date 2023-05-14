@@ -9,8 +9,8 @@
     margin-top: 5vh;
 }
 
-.rotate {
-    animation: rotate 1s forwards;
+.spin-save {
+    animation: spin-save 1s forwards;
 }
 
 .editor-buttons > * {
@@ -80,7 +80,7 @@
     }
   }
 
-  @keyframes rotate {
+  @keyframes spin-save {
     0% {
       transform: rotate(0deg);
     }

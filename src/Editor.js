@@ -55,7 +55,7 @@ export const Editor = () => {
         onChange={(e) => setSnippetDetails(prev => ({ ...prev, code: e }))}
       />
       <div className="editor-buttons">
-      {admin && <button onClick={() => { saveSnippet() }}>{saved ? <i onAnimationEnd={() => setSaved(false)} className={`fa fa-spinner ${saved ? "rotate" : ""}`} aria-hidden="true"></i> : "Save"}</button>}
+      {admin && <button onClick={() => { saveSnippet() }}>{saved ? <i onAnimationEnd={() => setSaved(false)} className={`fa fa-spinner ${saved ? "spin-save" : ""}`} aria-hidden="true"></i> : "Save"}</button>}
       {admin && <button onClick={() => setOpenEdit(true)}>Edit</button>}
       <Link to="/"><button>Home</button></Link>
       </div>
