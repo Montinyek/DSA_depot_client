@@ -17,6 +17,9 @@ export const Editor = () => {
   const [openEdit, setOpenEdit] = useState(false)
   const [saved, setSaved] = useState(false)
 
+  console.log(snippetDetails)
+  console.log("id", snippetId)
+
   function handleTagInput(e) {
     if (e.key !== "Enter") return
     let val = e.target.value
@@ -31,6 +34,7 @@ export const Editor = () => {
 
   useEffect(() => {
     if (saved && !snippetId) {
+      console.log("saved")
       Axios.post(`http://localhost:3001/${urls.newSnippet}`, {...snippetDetails, createdOn: newDate(), updatedOn: newDate() }).then(res => Axios.get("http://localhost:3001/latest").then(res => {setSnippetDetails(res.data); setSnippetId(res.data._id)} ))
     } else if (saved && snippetId) {
       Axios.put(`http://localhost:3001/${urls.updateSnippet}/${snippetId}`, {...snippetDetails, updatedOn: newDate() })
@@ -45,11 +49,15 @@ export const Editor = () => {
 
   const newDate = () => new Date().toUTCString().slice(5, 16)
 
+  let windowHeight = window.matchMedia("(max-height: 700px)")
+  let setHeight = (currentHeight) => currentHeight.matches ? "550px" : "750px"
+  let height = setHeight(windowHeight)
+
   return (
     <div>
       <CodeMirror
-        value={code}
-        height="550px"
+        value={code.trim()}
+        height={height}
         theme={atomone}
         extensions={[javascript({ jsx: true })]}
         onChange={(e) => setSnippetDetails(prev => ({ ...prev, code: e }))}

@@ -19,9 +19,9 @@ export const Home = () => {
   const { urls, setUrls } = useContext(EditorContext)
   const { admin, setAdmin } = useContext(EditorContext)
   const [loginInput, setLoginInput] = useState("")
-  const [filterVal, setFilterVal] = useState("")
+  const { filterVal, setFilterVal } = useContext(EditorContext)
   const [list, setList] = useState("")
-  const [displayedList, setDisplayedList] = useState('')
+  const { displayedList, setDisplayedList } = useContext(EditorContext)
   const [searchBy, setSearchBy] = useState("title")
   const [dropdownVisible, setDropdownVisible] = useState(false)
   const { page, setPage } = useContext(EditorContext)
@@ -32,15 +32,19 @@ export const Home = () => {
   const { setSnippetDetails } = useContext(EditorContext)
   const { setSnippetId } = useContext(EditorContext)
   const [ noSearchRes, setNoSearchRes ] = useState(false)
+  const blankSnippet = { title: "Untitled", code: " ", createdOn: " ", updatedOn: " ", lang: "JavaScript", tags: [] }
 
-  useEffect(() => {
-    setSnippetDetails({ title: "Untitled", code: " ", createdOn: " ", updatedOn: " ", lang: "JavaScript", tags: [] })
+  useEffect(() => { // setting a blank snippet on home page load
+    setSnippetDetails(blankSnippet)
     setSnippetId("")
+    localStorage.setItem("openedSnippet", JSON.stringify(blankSnippet))
+    localStorage.setItem("snippetId", "")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/").then(res => { setList(res.data); setDisplayedList(res.data); setDeleted(false) })
+    Axios.get("http://localhost:3001/").then(res => { setList(res.data); filterList(res.data); setDeleted(false) })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleted])
 
   useEffect(() => {
@@ -56,35 +60,35 @@ export const Home = () => {
   }
 
   const deleteSnippet = () => {
-    Axios.delete(`http://localhost:3001/${urls.deleteSnippet}/${deleteId}`).then(res => console.log(res.data))
+    Axios.delete(`http://localhost:3001/${urls.deleteSnippet}/${deleteId}`)
   }
 
-  function filterState() {
+  function filterList(obj) {
     if (filterVal.trim()) {
       let filtered = searchBy === "title"
         ?
-        list.filter(a => filterVal.trim().split(' ').map(val => val.toLowerCase()).filter(Boolean).some(b => a.title.split(' ').map(val => val.toLowerCase()).includes(b)))
+        obj.filter(a => filterVal.trim().split(' ').map(val => val.toLowerCase()).filter(Boolean).some(b => a.title.split(' ').map(val => val.toLowerCase()).includes(b)))
         :
-        list.filter(a => filterVal.trim().split(' ').map(val => val.toLowerCase()).filter(Boolean).some(b => a.tags.includes(b)))
+        obj.filter(a => filterVal.trim().split(' ').map(val => val.toLowerCase()).filter(Boolean).some(b => a.tags.includes(b)))
       setDisplayedList(filtered)
+      localStorage.setItem("displayedList", JSON.stringify(filtered))
       setFilterVal(filterVal.trim())
       setNoSearchRes(filtered.length ? false : true)
     } else {
-      setDisplayedList(list)
+      setDisplayedList(obj)
+      localStorage.setItem("displayedList", JSON.stringify(obj))
       setFilterVal("")
       setNoSearchRes(false)
     }
   }
 
-  console.log(list.length)
-  console.log(noSearchRes)
-
   function handleSearch(e) {
     setFilterVal(e.target.value)
+    localStorage.setItem("filterVal", e.target.value)
   }
 
-  function sliceList(list) {
-    return list.slice((7 * page) - 7, 7 * page)
+  function sliceList(arr) {
+    return arr.slice((7 * page) - 7, 7 * page)
   }
 
   function getIcon(lang) {
@@ -109,7 +113,7 @@ export const Home = () => {
         <button onClick={() => { deleteSnippet(); setOpenDelete(false); setDeleted(true) }} style={{ width: "60%" }}>Confirm</button>
       </DeleteModal>
       <div className="login-and-editor-btn">
-      {admin && <Link to="/editor" onClick={() => localStorage.setItem("openedSnippet", "")}><button>Editor</button></Link>}
+      {admin && <Link to="/editor"><button>New</button></Link>}
       {!admin ? <button onClick={() => setOpenLogin(true)}>Login</button> : <button onClick={() => {setAdmin(false); localStorage.clear()}}>Logout</button>}
       </div>
 
@@ -117,7 +121,7 @@ export const Home = () => {
         <div className="search">
           <input type="string" value={filterVal} onChange={handleSearch} />
           <div className="searchBy">
-            <span onClick={filterState}>Search by {searchBy === "title" ? "title" : "tags"}</span>
+            <span onClick={() => filterList(list)}>Search by {searchBy === "title" ? "title" : "tags"}</span>
             <span onClick={() => setDropdownVisible(prev => !prev)}>
               <i className={`fa-solid fa-caret-down ${dropdownVisible ? 'arrowUp' : ''}`}></i>
             </span>

@@ -46,8 +46,10 @@
 .tag {
     color: #F1EDEE;
     background-color: #3C474B;
-    display: inline-block;
-    padding: 0.3rem 0.6rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem 0.6rem;
     border-radius: 20px;
     font-size: 1.1rem;
 }

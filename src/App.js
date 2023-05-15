@@ -11,17 +11,19 @@ function App() {
   const [snippetId, setSnippetId] = useState(localStorage.getItem("snippetId") ? localStorage.getItem("snippetId") : "")
   const [urls, setUrls] = useState(localStorage.getItem("URLS") ? JSON.parse(localStorage.getItem("URLS")) : "")
   const [page, setPage] = useState(localStorage.getItem("page") ? +localStorage.getItem("page") : 1)
+  const [filterVal, setFilterVal] = useState(localStorage.getItem("filterVal") ? localStorage.getItem("filterVal") : "")
+  const [displayedList, setDisplayedList] = useState(localStorage.getItem("displayedList") ? JSON.parse(localStorage.getItem("displayedList")) : "")
 
   return (
     <div className="App">
-      <EditorContext.Provider value={{ admin, setAdmin, snippetDetails, setSnippetDetails, snippetId, setSnippetId, urls, setUrls, page, setPage }}>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/editor" element={<Editor />}/>
-      <Route path="/" element={<Home />}/>
-    </Routes>
-    </BrowserRouter>
-    </EditorContext.Provider>
+      <EditorContext.Provider value={{ admin, setAdmin, snippetDetails, setSnippetDetails, snippetId, setSnippetId, urls, setUrls, page, setPage, filterVal, setFilterVal, displayedList, setDisplayedList }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/editor" element={<Editor />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </EditorContext.Provider>
     </div>
   );
 }
