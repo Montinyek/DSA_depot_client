@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import './table.css'
@@ -33,6 +33,7 @@ export const Home = () => {
   const { setSnippetId } = useContext(EditorContext)
   const [ noSearchRes, setNoSearchRes ] = useState(false)
   const blankSnippet = { title: "Untitled", code: " ", createdOn: " ", updatedOn: " ", lang: "JavaScript", tags: [] }
+  const navigate = useNavigate()
 
   useEffect(() => { // setting a blank snippet on home page load
     setSnippetDetails(blankSnippet)
@@ -43,7 +44,7 @@ export const Home = () => {
   }, [])
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/").then(res => { setList(res.data); filterList(res.data); setDeleted(false) })
+    Axios.get("https://dsadepotserver-production.up.railway.app/").then(res => { setList(res.data); filterList(res.data); setDeleted(false) })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleted])
 
@@ -56,11 +57,11 @@ export const Home = () => {
   }
 
   const login = () => {
-    Axios.post("http://localhost:3001/login", { input: loginInput }).then(res => { setUrls(res.data); localStorage.setItem("URLS", JSON.stringify(res.data)); setAdmin(true); setOpenLogin(false); setLoginInput("") }).catch(err => console.log(err))
+    Axios.post("https://dsadepotserver-production.up.railway.app/login", { input: loginInput }).then(res => { setUrls(res.data); localStorage.setItem("URLS", JSON.stringify(res.data)); setAdmin(true); setOpenLogin(false); setLoginInput("") }).catch(err => console.log(err))
   }
 
   const deleteSnippet = () => {
-    Axios.delete(`http://localhost:3001/${urls.deleteSnippet}/${deleteId}`)
+    Axios.delete(`https://dsadepotserver-production.up.railway.app/${urls.deleteSnippet}/${deleteId}`)
   }
 
   function filterList(obj) {
@@ -100,7 +101,7 @@ export const Home = () => {
       return <FaJava />
     }
   }
-
+  
   return (
     <>
       <LoginModal open={openLogin} close={() => { setOpenLogin(false); setLoginInput("") }}>
@@ -138,20 +139,22 @@ export const Home = () => {
             {sliceList(displayedList).slice(0, 8).map((snippet, i) => {
               let id = page === 1 ? i : 8 * (page - 1) + i
 
+              const setEditor = () => { localStorage.setItem("openedSnippet", JSON.stringify(displayedList[id])); localStorage.setItem("snippetId", displayedList[id]._id); setSnippetDetails(displayedList[id]); setSnippetId(displayedList[id]._id) }
+
               return (<tr key={i}>
-                <td>
-                  <Link onClick={() => { localStorage.setItem("openedSnippet", JSON.stringify(displayedList[id])); localStorage.setItem("snippetId", displayedList[id]._id); setSnippetDetails(displayedList[id]); setSnippetId(displayedList[id]._id) }} to="/editor">{snippet.title}</Link>
+                <td onClick={() => {setEditor(); navigate("/editor")}}>
+                {snippet.title}
                 </td>
 
-                <td className="lang-icon">
+                <td className="lang-icon" onClick={() => {setEditor(); navigate("/editor")}}>
                   {getIcon(snippet.lang)}
                 </td>
 
-                <td>
+                <td onClick={() => {setEditor(); navigate("/editor")}}>
                   <span className="createdOn">{snippet.createdOn}</span>
                 </td>
 
-                <td>
+                <td onClick={() => {setEditor(); navigate("/editor")}}>
                   <span className="updatedOn">{snippet.updatedOn}</span>
                 </td>
 

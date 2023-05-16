@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "dsa-depot",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

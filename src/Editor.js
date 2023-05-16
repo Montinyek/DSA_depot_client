@@ -34,10 +34,9 @@ export const Editor = () => {
 
   useEffect(() => {
     if (saved && !snippetId) {
-      console.log("saved")
-      Axios.post(`http://localhost:3001/${urls.newSnippet}`, {...snippetDetails, createdOn: newDate(), updatedOn: newDate() }).then(res => Axios.get("http://localhost:3001/latest").then(res => {setSnippetDetails(res.data); setSnippetId(res.data._id)} ))
+      Axios.post(`https://dsadepotserver-production.up.railway.app/${urls.newSnippet}`, {...snippetDetails, createdOn: newDate(), updatedOn: newDate() }).then(res => Axios.get("https://dsadepotserver-production.up.railway.app/latest").then(res => {setSnippetDetails(res.data); setSnippetId(res.data._id)} ))
     } else if (saved && snippetId) {
-      Axios.put(`http://localhost:3001/${urls.updateSnippet}/${snippetId}`, {...snippetDetails, updatedOn: newDate() })
+      Axios.put(`https://dsadepotserver-production.up.railway.app/${urls.updateSnippet}/${snippetId}`, {...snippetDetails, updatedOn: newDate() })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [saved])
@@ -73,9 +72,9 @@ export const Editor = () => {
         onChange={(e) => setSnippetDetails(prev => ({ ...prev, code: e }))}
       />
       <div className="editor-buttons">
-      {admin && <button onClick={() => { saveSnippet() }}>{saved ? <i onAnimationEnd={() => setSaved(false)} className={`fa fa-spinner ${saved ? "spin-save" : ""}`} aria-hidden="true"></i> : "Save"}</button>}
       {admin && <button onClick={() => setOpenEdit(true)}>Edit</button>}
       <Link to="/"><button>Home</button></Link>
+      {admin && <button onClick={() => { saveSnippet() }}>{saved ? <i onAnimationEnd={() => setSaved(false)} className={`fa fa-spinner ${saved ? "spin-save" : ""}`} aria-hidden="true"></i> : "Save"}</button>}
       </div>
       <EditModal open={openEdit} close={() => { setOpenEdit(false) }}>
         <input type="text" value={title} className="edit-modal-title" onChange={(e) => setSnippetDetails(prev => ({ ...prev, title: e.target.value }))} />
