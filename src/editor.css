@@ -2,6 +2,19 @@
     font-size: 1rem;
 }
 
+.cm-scroller::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  
+.cm-scroller::-webkit-scrollbar-track {
+    background: #101419; 
+  }
+   
+.cm-scroller::-webkit-scrollbar-thumb {
+    background: #F1EDEE;
+  }
+
 .editor-buttons {
     display: flex;
     flex-wrap: wrap;

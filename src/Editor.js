@@ -16,9 +16,9 @@ export const Editor = () => {
   const { snippetId, setSnippetId } = useContext(EditorContext)
   const [openEdit, setOpenEdit] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [editorHeight, setEditorHeight] = useState("750px")
 
-  console.log(snippetDetails)
-  console.log("id", snippetId)
+  const newDate = () => new Date().toUTCString().slice(5, 16)
 
   function handleTagInput(e) {
     if (e.key !== "Enter") return
@@ -47,17 +47,27 @@ export const Editor = () => {
     localStorage.setItem("openedSnippet", JSON.stringify(snippetDetails))
   }
 
-  const newDate = () => new Date().toUTCString().slice(5, 16)
+  React.useEffect(() => {
+    const debouncedHandleResize = debounce(() => {
+      if (window.innerHeight > 700) {
+        setEditorHeight("750px")
+      } else {
+        setEditorHeight("550px")
+      }
+    }, 500)
 
-  let windowHeight = window.matchMedia("(max-height: 700px)")
-  let setHeight = (currentHeight) => currentHeight.matches ? "550px" : "750px"
-  let height = setHeight(windowHeight)
+    window.addEventListener("resize", debouncedHandleResize);
+
+    return () => { // cleaning up
+      window.removeEventListener("resize", debouncedHandleResize);
+    }
+  })
 
   return (
     <div>
       <CodeMirror
         value={code.trim()}
-        height={height}
+        height={editorHeight}
         theme={atomone}
         extensions={[javascript({ jsx: true })]}
         onChange={(e) => setSnippetDetails(prev => ({ ...prev, code: e }))}
@@ -86,5 +96,16 @@ export const Editor = () => {
       </EditModal>
     </div>
   );
+}
+
+function debounce(fn, delay) {
+  let timer
+  return () => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      timer = null
+      fn.apply(this, arguments)
+    }, delay)
+  }
 }
 

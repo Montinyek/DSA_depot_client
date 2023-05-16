@@ -88,7 +88,7 @@ export const Home = () => {
   }
 
   function sliceList(arr) {
-    return arr.slice((7 * page) - 7, 7 * page)
+    return arr.slice((8 * page) - 8, 8 * page)
   }
 
   function getIcon(lang) {
@@ -135,8 +135,8 @@ export const Home = () => {
 
         {displayedList && <table>
           <tbody>
-            {sliceList(displayedList).slice(0, 7).map((snippet, i) => {
-              let id = page === 1 ? i : 7 * (page - 1) + i
+            {sliceList(displayedList).slice(0, 8).map((snippet, i) => {
+              let id = page === 1 ? i : 8 * (page - 1) + i
 
               return (<tr key={i}>
                 <td>
@@ -173,7 +173,7 @@ export const Home = () => {
 
       <div className="page-controls">
           <button disabled={page === 1} onClick={() => {setPage(prev => prev > 1 ? prev - 1 : 1); localStorage.setItem("page", +page - 1)}}><FaLongArrowAltLeft /></button>
-          <button disabled={7 * page >= displayedList.length} onClick={() => {setPage(prev => 7 * page < displayedList.length ? prev + 1 : prev); localStorage.setItem("page", +page + 1)}}><FaLongArrowAltRight /></button>
+          <button disabled={8 * page >= displayedList.length} onClick={() => {setPage(prev => 8 * page < displayedList.length ? prev + 1 : prev); localStorage.setItem("page", +page + 1)}}><FaLongArrowAltRight /></button>
         </div>
     </>
   );
