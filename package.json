@@ -1,5 +1,6 @@
 {
   "name": "dsa-depot",
+  "homepage": "http://dsadepot.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@uiw/codemirror-theme-atomone": "^4.19.16",
     "@uiw/codemirror-theme-darcula": "^4.19.16",
+    "@uiw/codemirror-theme-nord": "^4.19.16",
     "@uiw/react-codemirror": "^4.19.16",
     "axios": "^1.4.0",
     "react": "^18.2.0",

@@ -3,7 +3,7 @@ import CodeMirror from '@uiw/react-codemirror'
 import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import { javascript } from '@codemirror/lang-javascript'
-import { atomone } from '@uiw/codemirror-theme-atomone'
+import { nord } from '@uiw/codemirror-theme-nord'
 import { EditorContext } from './EditorContext'
 import { EditModal } from './EditModal'
 import './editor.css'
@@ -67,7 +67,7 @@ export const Editor = () => {
       <CodeMirror
         value={code.trim()}
         height={editorHeight}
-        theme={atomone}
+        theme={nord}
         extensions={[javascript({ jsx: true })]}
         onChange={(e) => setSnippetDetails(prev => ({ ...prev, code: e }))}
       />
