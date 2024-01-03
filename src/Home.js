@@ -126,7 +126,7 @@ export const Home = () => {
             <span onClick={() => setDropdownVisible(prev => !prev)}>
               <i className={`fa-solid fa-caret-down ${dropdownVisible ? 'arrowUp' : ''}`}></i>
             </span>
-            <ul style={dropdownVisible ? { opacity: 1, visiblity: "visible" } : { opacity: 0, visiblity: "hidden" }}>
+            <ul style={dropdownVisible ? { opacity: 1, visibility: "visible" } : { opacity: 0, visibility: "hidden" }}>
               <li onClick={() => { setSearchBy("title"); setDropdownVisible(false) }} style={searchBy === "title" ? { opacity: 0.5, pointerEvents: "none" } : { opacity: 1 }}>title</li>
               <li onClick={() => { setSearchBy("tags"); setDropdownVisible(false) }} style={searchBy === "tags" ? { opacity: 0.5, pointerEvents: "none" } : { opacity: 1 }}>tags</li>
             </ul>
