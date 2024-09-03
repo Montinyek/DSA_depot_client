@@ -60,7 +60,7 @@ export const Editor = () => {
     return () => { // cleaning up
       window.removeEventListener("resize", debouncedHandleResize);
     }
-  })
+  }, [])
 
   return (
     <div>
